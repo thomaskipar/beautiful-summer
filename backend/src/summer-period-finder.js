@@ -1,18 +1,10 @@
 let LineByLineReader = require('line-by-line');
 let moment = require('moment');
+let parser = require('./data-parser');
 
-let lr = new LineByLineReader('../data/recent.txt');
-let data = {}
+parser(findSummerPeriods);
 
-parseFile('../data/recent.txt', data, function() {
-    parseFile('../data/historic.txt', data, function() {
-       console.log(data);
-       console.log('foo');
-       findSummerPeriods();
-    });
-});
-
-function findSummerPeriods() {
+function findSummerPeriods(data) {
     let startDate = moment("1961-01-01", "YYYY-MM-DD");
     let endDate = moment();
     let date = startDate;
@@ -42,19 +34,5 @@ function findSummerPeriods() {
 
 }
 
-function parseFile(fileName, model, callback) {
-    let lr = new LineByLineReader(fileName);
 
-    lr.on('error', function (err) {
-    });
-
-    lr.on('line', function (line) {
-        let values = line.split(";");
-        data[values[1]] = parseFloat(values[15].trim());
-    });
-
-    lr.on('end', function () {
-        callback();
-    });
-}
 

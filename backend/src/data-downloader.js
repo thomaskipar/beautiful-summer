@@ -4,8 +4,6 @@ var yauzl = require("yauzl");
 var Client = require('ftp');
 var streamToBuffer = require('stream-to-buffer')
 
-let tmpFile = 'tmp';
-
 updateData('../data/recent.txt', function () {
     console.log('done');
 });
