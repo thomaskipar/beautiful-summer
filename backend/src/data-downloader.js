@@ -2,6 +2,7 @@ let config = require('../config/config.json');
 let fs = require('fs');
 var yauzl = require("yauzl");
 var Client = require('ftp');
+var streamToBuffer = require('stream-to-buffer')
 
 let tmpFile = 'tmp';
 
@@ -9,9 +10,9 @@ updateData('../data/recent.txt', function () {
     console.log('done');
 });
 
-function extractData(outputPath, callback) {
+function extractData(buffer, outputPath, callback) {
 
-    yauzl.open(tmpFile, {lazyEntries: true}, function (err, zipfile) {
+    yauzl.fromBuffer(buffer, {lazyEntries: true}, function (err, zipfile) {
         if (err) throw err;
 
         zipfile.readEntry();
@@ -45,9 +46,9 @@ function updateData(outputPath, callback) {
             if (err) {
                 throw err;
             }
-            stream.once('close', function () {
+            streamToBuffer(stream, function (err, buffer) {
                 c.end();
-                extractData(outputPath, callback);
+                extractData(buffer, outputPath, callback);
             });
         });
     });
