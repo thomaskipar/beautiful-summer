@@ -20,7 +20,7 @@ function findSummerPeriods(data) {
             if (currentSummerDate) {
                 numSummerDays++;
             } else {
-                currentSummerDate = moment(date)
+                currentSummerDate = moment(date);
                 numSummerDays = 1;
             }
         } else if (currentSummerDate) {

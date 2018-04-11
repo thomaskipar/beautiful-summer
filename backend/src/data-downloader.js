@@ -4,10 +4,6 @@ var yauzl = require("yauzl");
 var Client = require('ftp');
 var streamToBuffer = require('stream-to-buffer')
 
-updateData('../data/recent.txt', function () {
-    console.log('done');
-});
-
 function extractData(buffer, outputPath, callback) {
 
     yauzl.fromBuffer(buffer, {lazyEntries: true}, function (err, zipfile) {
@@ -54,4 +50,4 @@ function updateData(outputPath, callback) {
 
 }
 
-module.exports = updateData
+module.exports = updateData;
