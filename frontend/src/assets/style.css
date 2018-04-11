@@ -3,17 +3,21 @@ body {
     margin: 0px 0px 0px 0px;
 }
 
-.header {
-    background-color: #ffe996;
-    font-size: 2em;
+@media (max-width: 480px) {
+    .header {
+        background-color: #ffe996;
+        font-size: 5vw;
 
-    margin-top: 20px;
+        margin-top: 20px;
 
-    padding-top: 60px;
-    padding-bottom: 60px;
-    padding-left: 20px;
-    padding-right: 20px;
+        padding-top: 60px;
+        padding-bottom: 60px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 }
+
+
 
 .em {
     font-weight: bold;
