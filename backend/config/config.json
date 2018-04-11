@@ -1,6 +1,5 @@
 {
-  "startDate" : "2017-06-01",
-  "endDate" : "2017-09-30",
+  "year" : "2018",
   "minTemperature" : 28,
   "city" : "Braunschweig",
   "weatherStation" : "00662",
