@@ -32,7 +32,7 @@ function runApp() {
     var app = express();
     var port = 8081;
 
-    app.use(express.static('../../src/frontend'));
+    app.use(express.static('../../frontend/dist'));
 
     app.get('/api/data', function (req, res) {
         res.header("Access-Control-Allow-Origin", "*");

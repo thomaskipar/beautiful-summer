@@ -38,7 +38,9 @@ function updateData(outputPath, callback) {
     c.on('ready', function () {
         c.get(downloadPath, function (err, stream) {
             if (err) {
-                throw err;
+                c.end();
+                console.log("Could not get data: " + err);
+                callback({});
             }
             streamToBuffer(stream, function (err, buffer) {
                 c.end();
