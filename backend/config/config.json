@@ -1,5 +1,6 @@
 {
-  "year" : "2018",
+  "firstYear" : 1961,
+  "year" : 2018,
   "minTemperature" : 28,
   "city" : "Braunschweig",
   "weatherStation" : "00662",

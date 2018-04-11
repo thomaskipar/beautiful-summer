@@ -3,10 +3,11 @@ let moment = require('moment');
 let config = require('../config/config.json');
 let baseUrl = 'http://api.weatherbit.io/v2.0/history/daily';
 let schedule = require('node-schedule');
-var express = require('express');
+let express = require('express');
 
 let downloader = require('./data-downloader');
 let parser = require('./data-parser');
+let warmestDays = require('./warm-days-finder');
 
 let data = {};
 
@@ -33,8 +34,17 @@ var port = 8080;
 
 app.use(express.static('../../src/frontend'));
 
-app.get('/api', function (req, res) {
-    res.json(config);
+app.get('/api/data', function (req, res) {
+    let result = Object.assign(config);
+    result.warmestDays = warmestDays(data, config.year);
+
+    let historic = [];
+    for(let year = config.firstYear; year < config.year; year++) {
+        historic.push({year: year, warmestDays: warmestDays(data, year)})
+    }
+    result.historic = historic;
+
+    res.json(result);
 });
 
 app.listen(8080, function () {

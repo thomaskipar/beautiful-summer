@@ -47,5 +47,6 @@ function findLongestWarmPeriod(data, year) {
     }
 }
 
+module.exports = findLongestWarmPeriod
 
 
