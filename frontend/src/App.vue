@@ -36,7 +36,7 @@
         methods: {
             fetchData: function () {
                 axios
-                    .get('http://localhost:8081/api/data')
+                    .get('api/data')
                     .then(response => {
                         response.data.historic.reverse();
                         this.data = response.data;
