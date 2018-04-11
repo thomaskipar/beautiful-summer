@@ -1,8 +1,5 @@
 let LineByLineReader = require('line-by-line');
 
-let lr = new LineByLineReader('../data/recent.txt');
-
-
 function parse(callback) {
     let data = {};
 

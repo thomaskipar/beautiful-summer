@@ -15,38 +15,46 @@ let j = schedule.scheduleJob('* 0 * * *', function(){
     updateDataModel();
 });
 
-function updateDataModel() {
+function updateDataModel(callback) {
     console.log('Updating data...')
     downloader('../data/recent.txt', function() {
         parser(function(newData) {
             data = newData;
             console.log('... data successfully updated!');
+            if (callback) {
+                callback();
+            }
         })
+    });
+}
+
+function runApp() {
+    var app = express();
+    var port = 8081;
+
+    app.use(express.static('../../src/frontend'));
+
+    app.get('/api/data', function (req, res) {
+        res.header("Access-Control-Allow-Origin", "*");
+
+        let result = Object.assign(config);
+        result.warmestDays = warmestDays(data, config.year);
+
+        let historic = [];
+        for (let year = config.firstYear; year < config.year; year++) {
+            historic.push({year: year, warmestDays: warmestDays(data, year)})
+        }
+        result.historic = historic;
+
+        res.json(result);
+    });
+
+    app.listen(port, function () {
+        console.log(`Backend is listening on port ${port}`);
     });
 }
 
 
 console.log('Running backend for beautiful summer app');
-updateDataModel();
+updateDataModel(runApp);
 
-var app = express();
-var port = 8080;
-
-app.use(express.static('../../src/frontend'));
-
-app.get('/api/data', function (req, res) {
-    let result = Object.assign(config);
-    result.warmestDays = warmestDays(data, config.year);
-
-    let historic = [];
-    for(let year = config.firstYear; year < config.year; year++) {
-        historic.push({year: year, warmestDays: warmestDays(data, year)})
-    }
-    result.historic = historic;
-
-    res.json(result);
-});
-
-app.listen(8080, function () {
-    console.log(`Backend is listening on port ${port}`);
-});

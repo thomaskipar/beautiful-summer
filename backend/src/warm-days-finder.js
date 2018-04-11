@@ -43,7 +43,9 @@ function findLongestWarmPeriod(data, year) {
             days: maxSummerDays
         }
     } else {
-        return undefined;
+        return {
+            days: 0
+        };
     }
 }
 
